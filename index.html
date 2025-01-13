@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: #1f1f1f;
+      padding: 40px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ff5733;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-container input {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      background: #333;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .login-container button {
+      padding: 10px;
+      background: #ff5733;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-container .error-message {
+      display: none;
+      color: #ff0000;
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Loading Overlay Styles */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      display: none;
+    }
+
+    .loading-overlay.show {
+      display: flex;
+    }
+
+    .loading-overlay .spinner {
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top: 5px solid #ff5733;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Container -->
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <input type="text" id="username" name="username" placeholder="Username" required>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+      <p class="error-message" id="error-message">Invalid credentials. Please try again.</p>
+    </form>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    // Hardcoded login credentials
+    const users = {
+      admin: { password: "admin123", redirect: "admin-dashboard.html" },
+      user: { password: "user123", redirect: "user-dashboard.html" },
+      user: { password: "user123", redirect: "user-dashboard.html" },
+      PeterRabbit: { password: "HealthySex69!", redirect: "petdashboard.html" },
+      user: { password: "user123", redirect: "user-dashboard.html" },
+      user: { password: "user123", redirect: "user-dashboard.html" },
+      user: { password: "user123", redirect: "user-dashboard.html" },
+      user: { password: "user123", redirect: "user-dashboard.html" },
+    };
+
+    // DOM Elements
+    const loginForm = document.getElementById("login-form");
+    const errorMessage = document.getElementById("error-message");
+    const loadingOverlay = document.getElementById("loading-overlay");
+
+    // Form validation
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      // Validate credentials
+      if (users[username] && users[username].password === password) {
+        // Show loading overlay
+        loadingOverlay.classList.add("show");
+
+        // Simulate a delay (e.g., 3 seconds) before redirection
+        setTimeout(() => {
+          window.location.href = users[username].redirect;
+        }, 3000); // 3 seconds delay
+      } else {
+        errorMessage.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
